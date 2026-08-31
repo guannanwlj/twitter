@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>项目依赖图 · graphify</title>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral', flowchart: { curve: 'basis' } });
+</script>
+<style>
+  body { margin: 0; font-family: system-ui, 'PingFang SC', sans-serif; background: #f6f8fa; }
+  .bar { display: flex; align-items: center; gap: 16px; padding: 12px 20px; background: #fff;
+         border-bottom: 1px solid #d0d7de; position: sticky; top: 0; }
+  .bar h1 { font-size: 16px; margin: 0; }
+  .bar .meta { color: #57606a; font-size: 13px; }
+  .wrap { max-width: 1200px; margin: 20px auto; padding: 0 16px; }
+  .card { background: #fff; border: 1px solid #d0d7de; border-radius: 10px; padding: 20px; overflow-x: auto; }
+  .mermaid { display: flex; justify-content: center; }
+  .stats { display: flex; gap: 24px; margin: 16px 0; color: #57606a; font-size: 13px; }
+  .stats b { color: #1f2328; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .tab { border: 1px solid #d0d7de; background: #fff; padding: 6px 14px; border-radius: 8px;
+         cursor: pointer; font-size: 13px; font-weight: 600; color: #57606a; }
+  .tab.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <h1>项目依赖图 · graphify</h1>
+    <span class="meta">23 节点 · 52 模块边 · 0 个包 · 0 条包依赖</span>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <span>模块 <b>23</b></span>
+      <span>模块依赖边 <b>52</b></span>
+      <span>包 <b>0</b></span>
+      <span>包依赖边 <b>0</b></span>
+      <span>生成时间 <b>2026-08-06T03:16:11</b></span>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="show('pkg')">包级依赖图</button>
+      <button class="tab" onclick="show('module')">模块级依赖图</button>
+    </div>
+    <div class="card">
+      <pre class="mermaid" id="pkg-view">
+flowchart LR
+  direction LR
+      </pre>
+      <pre class="mermaid" id="module-view" style="display:none">
+flowchart TD
+  direction TB
+  subgraph nclient["client"]
+    nclient_src_App_jsx["App"]
+    nclient_src_context_AuthContext_jsx["AuthContext"]
+    nclient_src_pages_Login_jsx["Login"]
+    nclient_src_pages_Register_jsx["Register"]
+    nclient_src_pages_Feed_jsx["Feed"]
+    nclient_src_pages_Explore_jsx["Explore"]
+    nclient_src_pages_Profile_jsx["Profile"]
+    nclient_src_pages_PostDetail_jsx["PostDetail"]
+    nclient_src_components_Layout_jsx["Layout"]
+    nclient_src_components_Loading_jsx["Loading"]
+    nclient_src_api_js["api"]
+    nclient_src_components_Avatar_jsx["Avatar"]
+    nclient_src_components_FollowButton_jsx["FollowButton"]
+    nclient_src_components_PostCard_jsx["PostCard"]
+    nclient_src_utils_time_js["time"]
+    nclient_src_main_jsx["main"]
+    nclient_src_index_css["index.css"]
+  end
+  subgraph nserver["server"]
+    nserver_src_db_js["db"]
+    nserver_src_index_js["index"]
+    nserver_src_routes_auth_js["auth"]
+    nserver_src_routes_users_js["users"]
+    nserver_src_routes_posts_js["posts"]
+    nserver_src_middleware_auth_js["auth"]
+  end
+  nclient_src_App_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_App_jsx --> nclient_src_pages_Login_jsx
+  nclient_src_App_jsx --> nclient_src_pages_Register_jsx
+  nclient_src_App_jsx --> nclient_src_pages_Feed_jsx
+  nclient_src_App_jsx --> nclient_src_pages_Explore_jsx
+  nclient_src_App_jsx --> nclient_src_pages_Profile_jsx
+  nclient_src_App_jsx --> nclient_src_pages_PostDetail_jsx
+  nclient_src_App_jsx --> nclient_src_components_Layout_jsx
+  nclient_src_App_jsx --> nclient_src_components_Loading_jsx
+  nclient_src_components_FollowButton_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_components_Layout_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_components_Layout_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_components_PostCard_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_components_PostCard_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_components_PostCard_jsx --> nclient_src_utils_time_js
+  nclient_src_context_AuthContext_jsx --> nclient_src_api_js
+  nclient_src_main_jsx --> nclient_src_App_jsx
+  nclient_src_main_jsx --> nclient_src_index_css
+  nclient_src_pages_Explore_jsx --> nclient_src_api_js
+  nclient_src_pages_Explore_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_pages_Explore_jsx --> nclient_src_components_FollowButton_jsx
+  nclient_src_pages_Explore_jsx --> nclient_src_components_Loading_jsx
+  nclient_src_pages_Feed_jsx --> nclient_src_api_js
+  nclient_src_pages_Feed_jsx --> nclient_src_components_PostCard_jsx
+  nclient_src_pages_Feed_jsx --> nclient_src_components_Loading_jsx
+  nclient_src_pages_Feed_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_pages_Feed_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_pages_Login_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_pages_PostDetail_jsx --> nclient_src_api_js
+  nclient_src_pages_PostDetail_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_pages_PostDetail_jsx --> nclient_src_components_Loading_jsx
+  nclient_src_pages_PostDetail_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_pages_PostDetail_jsx --> nclient_src_utils_time_js
+  nclient_src_pages_Profile_jsx --> nclient_src_api_js
+  nclient_src_pages_Profile_jsx --> nclient_src_components_Avatar_jsx
+  nclient_src_pages_Profile_jsx --> nclient_src_components_FollowButton_jsx
+  nclient_src_pages_Profile_jsx --> nclient_src_components_PostCard_jsx
+  nclient_src_pages_Profile_jsx --> nclient_src_components_Loading_jsx
+  nclient_src_pages_Profile_jsx --> nclient_src_context_AuthContext_jsx
+  nclient_src_pages_Profile_jsx --> nclient_src_utils_time_js
+  nclient_src_pages_Register_jsx --> nclient_src_context_AuthContext_jsx
+  nserver_src_index_js --> nserver_src_db_js
+  nserver_src_index_js --> nserver_src_routes_auth_js
+  nserver_src_index_js --> nserver_src_routes_users_js
+  nserver_src_index_js --> nserver_src_routes_posts_js
+  nserver_src_middleware_auth_js --> nserver_src_db_js
+  nserver_src_routes_auth_js --> nserver_src_db_js
+  nserver_src_routes_auth_js --> nserver_src_middleware_auth_js
+  nserver_src_routes_posts_js --> nserver_src_db_js
+  nserver_src_routes_posts_js --> nserver_src_middleware_auth_js
+  nserver_src_routes_users_js --> nserver_src_db_js
+  nserver_src_routes_users_js --> nserver_src_middleware_auth_js
+      </pre>
+    </div>
+  </div>
+  <script>
+    function show(which) {
+      document.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('pkg-view').style.display = which === 'pkg' ? 'flex' : 'none';
+      document.getElementById('module-view').style.display = which === 'module' ? 'flex' : 'none';
+    }
+  </script>
+</body>
+</html>

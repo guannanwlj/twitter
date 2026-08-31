@@ -1,0 +1,332 @@
+{
+  "root": "/Users/guannanw/Documents/Default Project",
+  "generated_at": "2026-08-06T03:16:11.077Z",
+  "nodes": [
+    {
+      "id": "client/src/App.jsx",
+      "label": "client/src/App",
+      "group": "client"
+    },
+    {
+      "id": "client/src/context/AuthContext.jsx",
+      "label": "client/src/context/AuthContext",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/Login.jsx",
+      "label": "client/src/pages/Login",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/Register.jsx",
+      "label": "client/src/pages/Register",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/Feed.jsx",
+      "label": "client/src/pages/Feed",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/Explore.jsx",
+      "label": "client/src/pages/Explore",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/Profile.jsx",
+      "label": "client/src/pages/Profile",
+      "group": "client"
+    },
+    {
+      "id": "client/src/pages/PostDetail.jsx",
+      "label": "client/src/pages/PostDetail",
+      "group": "client"
+    },
+    {
+      "id": "client/src/components/Layout.jsx",
+      "label": "client/src/components/Layout",
+      "group": "client"
+    },
+    {
+      "id": "client/src/components/Loading.jsx",
+      "label": "client/src/components/Loading",
+      "group": "client"
+    },
+    {
+      "id": "client/src/api.js",
+      "label": "client/src/api",
+      "group": "client"
+    },
+    {
+      "id": "client/src/components/Avatar.jsx",
+      "label": "client/src/components/Avatar",
+      "group": "client"
+    },
+    {
+      "id": "client/src/components/FollowButton.jsx",
+      "label": "client/src/components/FollowButton",
+      "group": "client"
+    },
+    {
+      "id": "client/src/components/PostCard.jsx",
+      "label": "client/src/components/PostCard",
+      "group": "client"
+    },
+    {
+      "id": "client/src/utils/time.js",
+      "label": "client/src/utils/time",
+      "group": "client"
+    },
+    {
+      "id": "client/src/main.jsx",
+      "label": "client/src/main",
+      "group": "client"
+    },
+    {
+      "id": "client/src/index.css",
+      "label": "client/src/index.css",
+      "group": "client"
+    },
+    {
+      "id": "server/src/db.js",
+      "label": "server/src/db",
+      "group": "server"
+    },
+    {
+      "id": "server/src/index.js",
+      "label": "server/src/index",
+      "group": "server"
+    },
+    {
+      "id": "server/src/routes/auth.js",
+      "label": "server/src/routes/auth",
+      "group": "server"
+    },
+    {
+      "id": "server/src/routes/users.js",
+      "label": "server/src/routes/users",
+      "group": "server"
+    },
+    {
+      "id": "server/src/routes/posts.js",
+      "label": "server/src/routes/posts",
+      "group": "server"
+    },
+    {
+      "id": "server/src/middleware/auth.js",
+      "label": "server/src/middleware/auth",
+      "group": "server"
+    }
+  ],
+  "edges": [
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/Login.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/Register.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/Feed.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/Explore.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/Profile.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/pages/PostDetail.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/components/Layout.jsx"
+    },
+    {
+      "from": "client/src/App.jsx",
+      "to": "client/src/components/Loading.jsx"
+    },
+    {
+      "from": "client/src/components/FollowButton.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/components/Layout.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/components/Layout.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/components/PostCard.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/components/PostCard.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/components/PostCard.jsx",
+      "to": "client/src/utils/time.js"
+    },
+    {
+      "from": "client/src/context/AuthContext.jsx",
+      "to": "client/src/api.js"
+    },
+    {
+      "from": "client/src/main.jsx",
+      "to": "client/src/App.jsx"
+    },
+    {
+      "from": "client/src/main.jsx",
+      "to": "client/src/index.css"
+    },
+    {
+      "from": "client/src/pages/Explore.jsx",
+      "to": "client/src/api.js"
+    },
+    {
+      "from": "client/src/pages/Explore.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/pages/Explore.jsx",
+      "to": "client/src/components/FollowButton.jsx"
+    },
+    {
+      "from": "client/src/pages/Explore.jsx",
+      "to": "client/src/components/Loading.jsx"
+    },
+    {
+      "from": "client/src/pages/Feed.jsx",
+      "to": "client/src/api.js"
+    },
+    {
+      "from": "client/src/pages/Feed.jsx",
+      "to": "client/src/components/PostCard.jsx"
+    },
+    {
+      "from": "client/src/pages/Feed.jsx",
+      "to": "client/src/components/Loading.jsx"
+    },
+    {
+      "from": "client/src/pages/Feed.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/pages/Feed.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/pages/Login.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/pages/PostDetail.jsx",
+      "to": "client/src/api.js"
+    },
+    {
+      "from": "client/src/pages/PostDetail.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/pages/PostDetail.jsx",
+      "to": "client/src/components/Loading.jsx"
+    },
+    {
+      "from": "client/src/pages/PostDetail.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/pages/PostDetail.jsx",
+      "to": "client/src/utils/time.js"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/api.js"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/components/Avatar.jsx"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/components/FollowButton.jsx"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/components/PostCard.jsx"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/components/Loading.jsx"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "client/src/pages/Profile.jsx",
+      "to": "client/src/utils/time.js"
+    },
+    {
+      "from": "client/src/pages/Register.jsx",
+      "to": "client/src/context/AuthContext.jsx"
+    },
+    {
+      "from": "server/src/index.js",
+      "to": "server/src/db.js"
+    },
+    {
+      "from": "server/src/index.js",
+      "to": "server/src/routes/auth.js"
+    },
+    {
+      "from": "server/src/index.js",
+      "to": "server/src/routes/users.js"
+    },
+    {
+      "from": "server/src/index.js",
+      "to": "server/src/routes/posts.js"
+    },
+    {
+      "from": "server/src/middleware/auth.js",
+      "to": "server/src/db.js"
+    },
+    {
+      "from": "server/src/routes/auth.js",
+      "to": "server/src/db.js"
+    },
+    {
+      "from": "server/src/routes/auth.js",
+      "to": "server/src/middleware/auth.js"
+    },
+    {
+      "from": "server/src/routes/posts.js",
+      "to": "server/src/db.js"
+    },
+    {
+      "from": "server/src/routes/posts.js",
+      "to": "server/src/middleware/auth.js"
+    },
+    {
+      "from": "server/src/routes/users.js",
+      "to": "server/src/db.js"
+    },
+    {
+      "from": "server/src/routes/users.js",
+      "to": "server/src/middleware/auth.js"
+    }
+  ],
+  "mermaid": "flowchart TD\n  direction TB\n  subgraph nclient[\"client\"]\n    nclient_src_App_jsx[\"App\"]\n    nclient_src_context_AuthContext_jsx[\"AuthContext\"]\n    nclient_src_pages_Login_jsx[\"Login\"]\n    nclient_src_pages_Register_jsx[\"Register\"]\n    nclient_src_pages_Feed_jsx[\"Feed\"]\n    nclient_src_pages_Explore_jsx[\"Explore\"]\n    nclient_src_pages_Profile_jsx[\"Profile\"]\n    nclient_src_pages_PostDetail_jsx[\"PostDetail\"]\n    nclient_src_components_Layout_jsx[\"Layout\"]\n    nclient_src_components_Loading_jsx[\"Loading\"]\n    nclient_src_api_js[\"api\"]\n    nclient_src_components_Avatar_jsx[\"Avatar\"]\n    nclient_src_components_FollowButton_jsx[\"FollowButton\"]\n    nclient_src_components_PostCard_jsx[\"PostCard\"]\n    nclient_src_utils_time_js[\"time\"]\n    nclient_src_main_jsx[\"main\"]\n    nclient_src_index_css[\"index.css\"]\n  end\n  subgraph nserver[\"server\"]\n    nserver_src_db_js[\"db\"]\n    nserver_src_index_js[\"index\"]\n    nserver_src_routes_auth_js[\"auth\"]\n    nserver_src_routes_users_js[\"users\"]\n    nserver_src_routes_posts_js[\"posts\"]\n    nserver_src_middleware_auth_js[\"auth\"]\n  end\n  nclient_src_App_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_App_jsx --> nclient_src_pages_Login_jsx\n  nclient_src_App_jsx --> nclient_src_pages_Register_jsx\n  nclient_src_App_jsx --> nclient_src_pages_Feed_jsx\n  nclient_src_App_jsx --> nclient_src_pages_Explore_jsx\n  nclient_src_App_jsx --> nclient_src_pages_Profile_jsx\n  nclient_src_App_jsx --> nclient_src_pages_PostDetail_jsx\n  nclient_src_App_jsx --> nclient_src_components_Layout_jsx\n  nclient_src_App_jsx --> nclient_src_components_Loading_jsx\n  nclient_src_components_FollowButton_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_components_Layout_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_components_Layout_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_components_PostCard_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_components_PostCard_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_components_PostCard_jsx --> nclient_src_utils_time_js\n  nclient_src_context_AuthContext_jsx --> nclient_src_api_js\n  nclient_src_main_jsx --> nclient_src_App_jsx\n  nclient_src_main_jsx --> nclient_src_index_css\n  nclient_src_pages_Explore_jsx --> nclient_src_api_js\n  nclient_src_pages_Explore_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_pages_Explore_jsx --> nclient_src_components_FollowButton_jsx\n  nclient_src_pages_Explore_jsx --> nclient_src_components_Loading_jsx\n  nclient_src_pages_Feed_jsx --> nclient_src_api_js\n  nclient_src_pages_Feed_jsx --> nclient_src_components_PostCard_jsx\n  nclient_src_pages_Feed_jsx --> nclient_src_components_Loading_jsx\n  nclient_src_pages_Feed_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_pages_Feed_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_pages_Login_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_pages_PostDetail_jsx --> nclient_src_api_js\n  nclient_src_pages_PostDetail_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_pages_PostDetail_jsx --> nclient_src_components_Loading_jsx\n  nclient_src_pages_PostDetail_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_pages_PostDetail_jsx --> nclient_src_utils_time_js\n  nclient_src_pages_Profile_jsx --> nclient_src_api_js\n  nclient_src_pages_Profile_jsx --> nclient_src_components_Avatar_jsx\n  nclient_src_pages_Profile_jsx --> nclient_src_components_FollowButton_jsx\n  nclient_src_pages_Profile_jsx --> nclient_src_components_PostCard_jsx\n  nclient_src_pages_Profile_jsx --> nclient_src_components_Loading_jsx\n  nclient_src_pages_Profile_jsx --> nclient_src_context_AuthContext_jsx\n  nclient_src_pages_Profile_jsx --> nclient_src_utils_time_js\n  nclient_src_pages_Register_jsx --> nclient_src_context_AuthContext_jsx\n  nserver_src_index_js --> nserver_src_db_js\n  nserver_src_index_js --> nserver_src_routes_auth_js\n  nserver_src_index_js --> nserver_src_routes_users_js\n  nserver_src_index_js --> nserver_src_routes_posts_js\n  nserver_src_middleware_auth_js --> nserver_src_db_js\n  nserver_src_routes_auth_js --> nserver_src_db_js\n  nserver_src_routes_auth_js --> nserver_src_middleware_auth_js\n  nserver_src_routes_posts_js --> nserver_src_db_js\n  nserver_src_routes_posts_js --> nserver_src_middleware_auth_js\n  nserver_src_routes_users_js --> nserver_src_db_js\n  nserver_src_routes_users_js --> nserver_src_middleware_auth_js"
+}
