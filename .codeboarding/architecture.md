@@ -2,24 +2,27 @@
 
 ## Overview
 
-Bootstrap and top-level composition of the React SPA.; Route-level feature screens of the social app (feed, auth, profile, post detail, explore).; Reusable presentational widgets shared across pages.; Outbound HTTP client plus global authentication/session state and small utilities.; Express entry point, request-level auth guard middleware, and the REST resource endpoints (auth, posts, users).
+This is a social-media-style web application pairing a React SPA with an Express backend API. The browser entry point is the Client App Shell & Routing, which mounts React, wires global providers, and routes between the Client Feature Pages (authentication, feed, discovery, profiles, post detail) composed from Client Shared UI Components. At runtime, Client Services manage localStorage token/user persistence and a typed HTTP client with automatic 401 logout against the Server API Layer's JWT-guarded auth, users, and posts routes, backed by the Server Persistence Layer.
 
 ## Architectural Patterns
 
-- Client-Server Separated Monolith
-- Component-Based SPA with pages/components/context/utils layering
-- Layered Backend (Route → Middleware → Data)
-- Token-Based Statelessness (JWT bearer auth)
-- Relational Data Model with FK Graph (5 tables
+- Client-Server / Layered Architecture (frontend/backend/database separation)
+- SPA + REST API (React SPA consuming Express
+- Route-based Backend Organization (Router Pattern with routes mounted
+- Middleware Chain / Interceptor Pattern (JWT auth middleware
+- Context/Provider Pattern for Frontend State (AuthContext for global
+- Page-Component Hierarchy (Presentational Container: pages composing reusable components)
+- Relational Data Model with FK Constraints (5 tables:
+- Repository/Data-Access Layer (centralized db.js for schema and index
 
 ## Project Context
 
 - **Project Type:** Full-Stack Social Media Web Application
-- **Domain:** Social Media / Web Development
+- **Domain:** Web Development / Social Networking
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Node.js`, `CORS middleware`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`
 
 ## Common Commands
 
@@ -31,111 +34,47 @@ _No standard entry points detected._
 
 _Each module links to a per-module keyword file listing its native symbols (file/function/class names kept verbatim for exact grep), ranked by importance. The exact formula depends on the module's graph density: dense graphs use `0.30·bridge + 0.30·usage + 0.15·type + 0.15·activity + 0.10·exported`; sparse graphs (calls hidden behind runtime dispatch) use `0.20·bridge + 0.20·usage + 0.15·type + 0.15·activity + 0.15·exported + 0.15·file_hub`. See each keyword file's header for the rule that produced its scores. Agents read a module's keyword file on demand._
 
-### Client App Shell
+### Client App Shell & Routing
 
-Entry point, routing, and global styling for the React SPA.
+Bootstrap and routing scaffold for the SPA that mounts React, wires global providers and routes, and defines the browser entry point. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/m1.md`](keywords/m1.md) — 2 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
 
-### Client Feature Pages (Views)
+### Client Feature Pages
 
-The user-facing screens of the app: feed, discovery, post detail, profiles, and login/register.
+The user-facing feature areas of the app: authentication, feed, exploration/discovery, profiles, and post detail views. [evidence-linked: 52 call edges]
 
-- Keywords: [`keywords/m2.md`](keywords/m2.md) — 23 scored symbol(s)
-
-### Client Shared UI Components
-
-Reusable presentational widgets (post cards, avatars, follow control, layout chrome, loading state) plus small formatting helpers.
-
-- Keywords: [`keywords/m3.md`](keywords/m3.md) — 8 scored symbol(s)
-
-### Client Auth & API Layer
-
-Client-side session/auth state and the HTTP client that talks to the backend.
-
-- Keywords: [`keywords/m4.md`](keywords/m4.md) — 30 scored symbol(s)
-
-### Server HTTP Core
-
-Express application bootstrap: server setup, route/middleware wiring, and its package manifest.
-
-### Authentication Subsystem
-
-Server-side auth concerns: login/register endpoints and the token/session guard middleware.
-
-- Keywords: [`keywords/m6.md`](keywords/m6.md) — 5 scored symbol(s)
-
-### Social API Resources
-
-REST endpoints for the app's core domain: posts (feed/explore/detail) and users (profiles, follows).
-
-- Keywords: [`keywords/m7.md`](keywords/m7.md) — 2 scored symbol(s)
-
-### Database Layer
-
-SQLite persistence: connection/schema management and the database files themselves (including WAL sidecar files).
-
-### Code Graph Tooling (graphify)
-
-A standalone analysis tool that generates package/code dependency graphs and their visualization output.
-
-- Keywords: [`keywords/m9.md`](keywords/m9.md) — 5 scored symbol(s)
-
-### Documentation
-
-Architecture, capability, and navigation reference docs describing the system.
-
-### Dev Orchestration
-
-Repo-level launcher and top-level readme that coordinate running the client and server together.
-
-- Keywords: [`keywords/m11.md`](keywords/m11.md) — 68 scored symbol(s)
-
-### Client App Shell & Entry Point
-
-Bootstrap and top-level composition of the React SPA. [evidence-linked: 10 call edges]
-
-- Keywords: [`keywords/m12.md`](keywords/m12.md) — 2 scored symbol(s)
-
-### Client Page Views
-
-Route-level feature screens of the social app (feed, auth, profile, post detail, explore). [evidence-linked: 52 call edges]
-
-- Keywords: [`keywords/m13.md`](keywords/m13.md) — 23 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 23 scored symbol(s)
 
 ### Client Shared UI Components
 
-Reusable presentational widgets shared across pages. [evidence-linked: 22 call edges]
+Reusable presentational building blocks (avatar, post card, follow button, layout chrome, loading indicator) composed by the pages. [evidence-linked: 22 call edges]
 
-- Keywords: [`keywords/m14.md`](keywords/m14.md) — 8 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 6 scored symbol(s)
 
-### Client API & Auth State Layer
+### Client Services
 
-Outbound HTTP client plus global authentication/session state and small utilities. [evidence-linked: 36 call edges]
+The browser-side service layer: token/user persistence in localStorage, a typed HTTP client against the /api backend with automatic 401 logout, the app-wide auth context, and shared helpers. [evidence-linked: 36 call edges]
 
-- Keywords: [`keywords/m15.md`](keywords/m15.md) — 32 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 32 scored symbol(s)
 
-### Server HTTP Core & REST API Routes
+### Server API Layer
 
-Express entry point, request-level auth guard middleware, and the REST resource endpoints (auth, posts, users).
+The HTTP surface of the backend: Express bootstrap with CORS/JSON/error handling, a health endpoint, and auth/users/posts route modules guarded by JWT auth middleware.
 
-- Keywords: [`keywords/m16.md`](keywords/m16.md) — 5 scored symbol(s)
+- Keywords: [`keywords/5.md`](keywords/5.md) — 5 scored symbol(s)
 
 ### Server Persistence Layer
 
-Database connection/handler and the SQLite datastore (with WAL side files).
+Database access and storage: a SQLite database (with WAL sidecar files) backing users, posts, follows, likes, and comments.
 
-### Documentation & Architecture Maps
+### Code-Graph Tooling
 
-Written architecture, capability, and navigation references for the codebase.
+A repo-wide analysis pipeline: the graphify generator script, its generated dependency-graph data and interactive viewer output, plus the orchestration script that starts the stack.
 
-### Code-Graph Tooling (graphify)
+- Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
 
-A standalone Node script that analyzes the repo and its generated graph output/viewer.
+### Documentation
 
-- Keywords: [`keywords/m19.md`](keywords/m19.md) — 5 scored symbol(s)
-
-### Dev Bootstrap & Orchestration
-
-Convenience scripts to build/run the whole stack locally.
+Human-facing architecture and usage documentation describing the system's structure, capabilities, and navigation.
 
