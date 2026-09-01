@@ -2,20 +2,19 @@
 
 ## Overview
 
-This is a full-stack social media application: a React single-page app booted by the Client App Shell & Routing module (global routes plus the shared page chrome/navigation) that talks to the standalone API Server (Express + SQLite), which mounts /api/auth, /api/users, and /api/posts behind JWT middleware over a node:sqlite data layer. At runtime the Client API & Auth Layer owns all backend communication, token persistence, and the auth context and login/register screens, backing the Client Social UI's feed, discovery, profiles, and post detail with like/comment/follow interactions.
+This system is a social-feed SPA — posting, likes, comments, and follower relationships — built on a React client backed by a REST API server. The entry point is Client App Shell & Routing, which mounts React Router with an auth-guarded route table, while Client Session & API Client serves as the gateway to the backend, handling token persistence in localStorage, Bearer-authenticated fetches with 401 handling, and the login/register screens. At runtime, the feature layers (Client Feed & Posts Feature and Client Users & Follows Feature) sit on top, drawing on Client Shared UI Components for avatars, loading states, and time formatting.
 
 ## Architectural Patterns
 
-- Client-Server / Two-Tier separation (strict client/ vs server/
-- Component-Based UI (React): presentational components + page components
-- MVC-variant on server: Routes (Controller) → db.js (Model)
-- Middleware chain pattern: auth interception before route handlers
-- Context/Provider pattern: global auth state on client
-- API Layer abstraction: client/src/api.js decouples UI from transport
+- Client-Server / Two-Tier Monolith
+- RESTful API Layering (routes → middleware → db.js
+- SPA with Page-Based Routing (pages/ for routed views,
+- Cross-Cutting JWT/Token-Based Authentication spanning both tiers
+- Repository/Data-Access Pattern (central db.js abstraction)
 
 ## Project Context
 
-- **Project Type:** Full-stack web application
+- **Project Type:** Full-Stack Web Application
 - **Domain:** Web Development / Social Networking
 
 ## Tech Stack
@@ -34,39 +33,51 @@ _Each module links to a per-module keyword file listing its native symbols (file
 
 ### Client App Shell & Routing
 
-Boots the React SPA, wires global routes, and provides the shared page chrome/navigation around all feature pages. [evidence-linked: 10 call edges]
+Bootstrap of the SPA that mounts React Router, defines the auth-guarded route table and global styles. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 3 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
 
-### Client API & Auth Layer
+### Client Shared UI Components
 
-Owns all backend communication, token persistence, fetch wrapper with Bearer auth, and the auth state/context plus login/register screens. [evidence-linked: 32 call edges]
+Cross-cutting presentational widgets reused by pages and each other, including shell chrome, avatars, loading states, and time formatting. [evidence-linked: 19 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 36 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 6 scored symbol(s)
 
-### Client Social UI
+### Client Session & API Client
 
-The core user-facing feature surfaces: followed-users feed, discovery, profiles, and post detail with like/comment/follow interactions. [evidence-linked: 32 call edges]
+The client's gateway to the backend, handling token persistence in localStorage, a fetch wrapper with Bearer auth and 401 handling, the auth state context, and login/register screens. [evidence-linked: 32 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 23 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 36 scored symbol(s)
 
-### API Server (Express + SQLite)
+### Client Feed & Posts Feature
 
-The standalone backend: Express app entry mounting /api/auth, /api/users, /api/posts routes with JWT middleware and a node:sqlite data layer.
+Post composition, the following-feed, post detail with likes/comments, and the post card component. [evidence-linked: 25 call edges]
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 5 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 10 scored symbol(s)
 
-### Graphify Code-Graph Tooling
+### Client Users & Follows Feature
 
-A dependency-free Node script that statically scans source dirs, resolves imports, and emits module/package dependency graphs with an interactive Mermaid HTML viewer.
+User discovery, profiles with follower/following relationships, and the follow toggle. [evidence-linked: 24 call edges]
 
-- Keywords: [`keywords/5.md`](keywords/5.md) — 5 scored symbol(s)
+- Keywords: [`keywords/5.md`](keywords/5.md) — 9 scored symbol(s)
 
-### Architecture Documentation
+### Server REST API
 
-Written design docs describing system architecture, capability mapping, and navigation structure for the codebase.
+The Express application providing app wiring, CORS/JSON middleware, health endpoint, 404/500 handling, JWT auth middleware, and the auth, users/follows, and posts/likes/comments route groups.
 
-### Dev Orchestration & Packaging
+- Keywords: [`keywords/6.md`](keywords/6.md) — 5 scored symbol(s)
 
-One-command startup of both services plus the per-package manifests that define each deployable.
+### Server Persistence Layer
+
+SQLite database handle, schema DDL and indexes for users, posts, follows, likes, and comments, plus the on-disk WAL-mode database files.
+
+### Dependency-Graph Tooling (graphify)
+
+A standalone static-analysis script that parses imports from the source trees and emits module/package dependency graphs as JSON plus a Mermaid-based HTML viewer, with its generated output artifacts.
+
+- Keywords: [`keywords/8.md`](keywords/8.md) — 5 scored symbol(s)
+
+### Documentation & Launch Ops
+
+Architecture/capability/navigation docs, the project README, and the one-command script that installs and starts both the front end (5173) and back end (4000).
 
