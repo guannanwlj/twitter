@@ -2,27 +2,25 @@
 
 ## Overview
 
-This is a social-media-style web application pairing a React SPA with an Express backend API. The browser entry point is the Client App Shell & Routing, which mounts React, wires global providers, and routes between the Client Feature Pages (authentication, feed, discovery, profiles, post detail) composed from Client Shared UI Components. At runtime, Client Services manage localStorage token/user persistence and a typed HTTP client with automatic 401 logout against the Server API Layer's JWT-guarded auth, users, and posts routes, backed by the Server Persistence Layer.
+This project is a full-stack social media application pairing a React single-page application (covering feed/post browsing and profile/follow interactions) with a Node/Express REST backend. The client's main entry point is the Client App Shell & Routing module, which composes all pages and depends on Client API Client & Auth for the shared HTTP client and the session context established through login/registration. The Server API (server/src/index.js, built on express, cors, bcryptjs, and jsonwebtoken) exposes the auth, posts, profiles, and follows endpoints and persists its state under server/data/.
 
 ## Architectural Patterns
 
-- Client-Server / Layered Architecture (frontend/backend/database separation)
-- SPA + REST API (React SPA consuming Express
-- Route-based Backend Organization (Router Pattern with routes mounted
-- Middleware Chain / Interceptor Pattern (JWT auth middleware
-- Context/Provider Pattern for Frontend State (AuthContext for global
-- Page-Component Hierarchy (Presentational Container: pages composing reusable components)
-- Relational Data Model with FK Constraints (5 tables:
-- Repository/Data-Access Layer (centralized db.js for schema and index
+- Client-Server / REST API boundary (client/src/api.js as the
+- Layered backend (Routes → Middleware/auth guard → Data
+- Component-based SPA (route-level Pages + shared/reusable components +
+- Feature-aligned modularity (backend routes split by domain: auth,
+- Token-based authentication as a cross-cutting concern (AuthContext on
+- Docs-as-pipeline (graphify.mjs generates graph.json/pkggraph.json architecture documentation artifacts)
 
 ## Project Context
 
-- **Project Type:** Full-Stack Social Media Web Application
-- **Domain:** Web Development / Social Networking
+- **Project Type:** Full-stack social media web application
+- **Domain:** Web development
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Vite-style SPA build setup`
 
 ## Common Commands
 
@@ -36,45 +34,41 @@ _Each module links to a per-module keyword file listing its native symbols (file
 
 ### Client App Shell & Routing
 
-Bootstrap and routing scaffold for the SPA that mounts React, wires global providers and routes, and defines the browser entry point. [evidence-linked: 10 call edges]
+The client entry point and top-level layout/routing that composes all pages into the single-page application. [evidence-linked: 15 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 4 scored symbol(s)
 
-### Client Feature Pages
+### Client API Client & Auth
 
-The user-facing feature areas of the app: authentication, feed, exploration/discovery, profiles, and post detail views. [evidence-linked: 52 call edges]
+The shared HTTP client (client/src/api.js), session/auth context, and login/registration pages that establish the user's identity for all other features. [evidence-linked: 32 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 23 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 36 scored symbol(s)
 
-### Client Shared UI Components
+### Feed & Posts UI
 
-Reusable presentational building blocks (avatar, post card, follow button, layout chrome, loading indicator) composed by the pages. [evidence-linked: 22 call edges]
+The content-consumption feature: feed/explore/post-detail pages and the shared post rendering component with its time-formatting utility. [evidence-linked: 30 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 6 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 14 scored symbol(s)
 
-### Client Services
+### Profiles & Social Graph UI
 
-The browser-side service layer: token/user persistence in localStorage, a typed HTTP client against the /api backend with automatic 401 logout, the app-wide auth context, and shared helpers. [evidence-linked: 36 call edges]
+User-identity presentation and relationship actions: the profile page plus the avatar and follow-button components that surface social-graph state. [evidence-linked: 23 call edges]
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 32 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 9 scored symbol(s)
 
-### Server API Layer
+### Server API
 
-The HTTP surface of the backend: Express bootstrap with CORS/JSON/error handling, a health endpoint, and auth/users/posts route modules guarded by JWT auth middleware.
+The Node/Express backend (social-server, entry server/src/index.js, using express, cors, bcryptjs, and jsonwebtoken) exposing endpoints for auth, posts, profiles, and follows, backed by its persisted state in server/data/.
 
 - Keywords: [`keywords/5.md`](keywords/5.md) — 5 scored symbol(s)
 
-### Server Persistence Layer
+### Project Documentation
 
-Database access and storage: a SQLite database (with WAL sidecar files) backing users, posts, follows, likes, and comments.
+Written architecture and navigation/capability documentation describing the system's design.
 
-### Code-Graph Tooling
+### Repo Analysis Tooling & Artifacts
 
-A repo-wide analysis pipeline: the graphify generator script, its generated dependency-graph data and interactive viewer output, plus the orchestration script that starts the stack.
+A code-graph generation tool (graphify.mjs), its emitted output (JSON graphs, an HTML viewer, and a cache), and the start.sh launcher that orchestrates the app.
 
 - Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
-
-### Documentation
-
-Human-facing architecture and usage documentation describing the system's structure, capabilities, and navigation.
 
