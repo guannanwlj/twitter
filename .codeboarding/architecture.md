@@ -2,26 +2,24 @@
 
 ## Overview
 
-This project is a social platform web application: a React single-page frontend provides the feed, post details, profiles, and auth screens as the user-facing entry point, backed by a Node HTTP API exposing authentication, post, and user endpoints behind token-protected middleware. The API persists its data in SQLite database files maintained through db.js. Supporting tooling includes a standalone graphify script that builds and serves code and dependency graphs of the codebase, along with written architecture and navigation references.
+This system is a social application with a component-based UI, a Node backend, and SQLite persistence. The frontend entry point sets up routing, global auth state, and the single HTTP client the UI uses to talk to the backend, powering the social screens (feed, explore, post detail, profile, login/register) built from reusable presentational components. The Node server entry point wires up the app and applies cross-cutting authentication middleware to protected endpoints, delegating to feature-oriented handlers for authentication, posts, and users, which access the live SQLite database files including their -wal/-shm sidecars.
 
 ## Architectural Patterns
 
-- Client-Server / Two-Tier Monolith (separated client/ and server/
-- RESTful API (resource-oriented routes: auth, posts, users)
-- Layered Backend (routes/ -> middleware/ -> db.js ->
-- SPA with Page-based Routing (pages/ as feature entry
-- Context-based State Management (AuthContext for global auth state)
-- Centralized API Client (api.js as single network boundary)
-- Middleware/Interceptor Pattern (server auth guard on protected routes)
+- Client–Server (Two-Tier Separation): client/ and server/ fully decoupled
+- MVC-like (Backend): Routes (controllers) → db.js (model layer)
+- Component-Based SPA (Frontend): Pages + reusable components +
+- Layered Middleware Pipeline: Request → auth.js middleware →
+- API Gateway Pattern (simplified): api.js centralizes all frontend→backend
 
 ## Project Context
 
 - **Project Type:** Full-Stack Web Application
-- **Domain:** Web development
+- **Domain:** Web Development / Social Networking
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `CSS`, `Node.js`, `CommonJS/ESM modules`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Session/JWT auth middleware`
 
 ## Common Commands
 
@@ -31,21 +29,24 @@ _No standard entry points detected._
 
 ## Module Layer (Top-Level Components)
 
-### Client Web App `1`
-The React SPA browser frontend for the social platform, providing the feed, post details, profiles, and auth screens.
+### Client App Shell & API/State Layer `1`
+Entry point, routing, global auth state, and the single HTTP client the UI uses to talk to the backend.
 
-### Server API `2`
-The Node HTTP backend exposing authentication, post, and user endpoints with token-protected middleware.
+### Client Feature UI (Pages & Shared Components) `2`
+The social-app screens (feed, explore, post detail, profile, login/register) built from reusable presentational components.
 
-### Server Data Store `3`
-The SQLite database files backing the API (main db plus WAL/SHM sidecars), maintained via db.js.
+### Server Bootstrap & Auth Middleware `3`
+Node server entry point that wires up the app and provides cross-cutting authentication middleware for protected endpoints.
 
-### Repo Graph Analysis Tool `4`
-A standalone graphify script that builds code/dependency graphs of the codebase and serves its output.
+### REST API Routes `4`
+Feature-oriented endpoint handlers covering the three resource areas of the app: authentication, posts, and users.
 
-### Documentation & Architecture Guides `5`
-Written architecture, capability, and navigation references describing the system.
+### Persistence Layer `5`
+SQLite database access plus the live database files it operates on, including the -wal/-shm sidecar files.
 
-### App Launcher & Build Config `6`
-Dev orchestration and package manifests for running both halves of the app.
+### Documentation `6`
+Written architecture and capability/navigation maps describing the system's design.
+
+### Repo Tooling & Graph Artifacts `7`
+The graphify.mjs script that analyzes the codebase, its generated output, and the root startup script.
 
