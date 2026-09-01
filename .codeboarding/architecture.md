@@ -2,25 +2,24 @@
 
 ## Overview
 
-This system is a full-stack social posting application: a React SPA entered through Client App Shell & Entry, which composes routes and shared layout for the Client Feed & Posts UI, Client Profile & Social-Graph UI, and Client Auth & Session feature pages, all calling the backend through the shared HTTP client in Client Auth State & API Client (api.js). At runtime, the Server REST API is an Express application exposing authentication, posts, and users endpoints behind token-verification middleware, backed by the Persistence Layer for data access. Documentation, Build & Run Orchestration, and Code-Graph Tooling wrap the client and server halves with supporting material.
+Bootstrap and top-level composition of the React SPA.; Route-level feature screens of the social app (feed, auth, profile, post detail, explore).; Reusable presentational widgets shared across pages.; Outbound HTTP client plus global authentication/session state and small utilities.; Express entry point, request-level auth guard middleware, and the REST resource endpoints (auth, posts, users).
 
 ## Architectural Patterns
 
-- Client-Server (two-tier) architecture with RESTful HTTP API as
-- Layered backend: routes (controller layer) -> middleware (cross-cutting
-- Single-Page Application (SPA) with page/route decomposition: route-level pages
-- Context-based global state management (AuthContext for auth token/user
-- Centralized API client (client/src/api.js as the single network
-- Monorepo organization with independent package.json per subsystem plus
+- Client-Server Separated Monolith
+- Component-Based SPA with pages/components/context/utils layering
+- Layered Backend (Route → Middleware → Data)
+- Token-Based Statelessness (JWT bearer auth)
+- Relational Data Model with FK Graph (5 tables
 
 ## Project Context
 
-- **Project Type:** Full-Stack Web Application
-- **Domain:** Web Development / Social Networking
+- **Project Type:** Full-Stack Social Media Web Application
+- **Domain:** Social Media / Web Development
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Node.js`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Node.js`, `CORS middleware`
 
 ## Common Commands
 
@@ -32,95 +31,111 @@ _No standard entry points detected._
 
 _Each module links to a per-module keyword file listing its native symbols (file/function/class names kept verbatim for exact grep), ranked by importance. The exact formula depends on the module's graph density: dense graphs use `0.30·bridge + 0.30·usage + 0.15·type + 0.15·activity + 0.10·exported`; sparse graphs (calls hidden behind runtime dispatch) use `0.20·bridge + 0.20·usage + 0.15·type + 0.15·activity + 0.15·exported + 0.15·file_hub`. See each keyword file's header for the rule that produced its scores. Agents read a module's keyword file on demand._
 
-### Client App Shell & Entry
+### Client App Shell
 
-The bootstrap and routing layer that mounts the React single-page application.
+Entry point, routing, and global styling for the React SPA.
 
 - Keywords: [`keywords/m1.md`](keywords/m1.md) — 2 scored symbol(s)
 
-### Client Feature Pages
+### Client Feature Pages (Views)
 
-The route-level views of the social app (auth screens, feed, post detail, profile, explore).
+The user-facing screens of the app: feed, discovery, post detail, profiles, and login/register.
 
 - Keywords: [`keywords/m2.md`](keywords/m2.md) — 23 scored symbol(s)
 
-### Client UI Components
+### Client Shared UI Components
 
-Reusable presentation components shared across pages (layout, post cards, avatars, follow button, loading state).
+Reusable presentational widgets (post cards, avatars, follow control, layout chrome, loading state) plus small formatting helpers.
 
-- Keywords: [`keywords/m3.md`](keywords/m3.md) — 6 scored symbol(s)
+- Keywords: [`keywords/m3.md`](keywords/m3.md) — 8 scored symbol(s)
 
-### Client Auth State & API Client
+### Client Auth & API Layer
 
-The cross-cutting frontend layer: session/auth context, the HTTP client to the backend, and shared utilities.
+Client-side session/auth state and the HTTP client that talks to the backend.
 
-- Keywords: [`keywords/m4.md`](keywords/m4.md) — 32 scored symbol(s)
+- Keywords: [`keywords/m4.md`](keywords/m4.md) — 30 scored symbol(s)
 
-### Server REST API
+### Server HTTP Core
 
-The Node server's HTTP surface: entry point, route handlers for auth/posts/users, and the auth middleware guarding protected routes.
+Express application bootstrap: server setup, route/middleware wiring, and its package manifest.
 
-- Keywords: [`keywords/m5.md`](keywords/m5.md) — 5 scored symbol(s)
+### Authentication Subsystem
 
-### Server Data Layer
+Server-side auth concerns: login/register endpoints and the token/session guard middleware.
 
-Database access and the persisted social-graph data (SQLite with WAL files present).
+- Keywords: [`keywords/m6.md`](keywords/m6.md) — 5 scored symbol(s)
 
-### Documentation
+### Social API Resources
 
-Human-written architectural and capability documentation describing the system.
+REST endpoints for the app's core domain: posts (feed/explore/detail) and users (profiles, follows).
 
-### Dev Tooling & Orchestration
+- Keywords: [`keywords/m7.md`](keywords/m7.md) — 2 scored symbol(s)
 
-The repo's developer tooling: the launch script that starts client and server together, the README tying the two together, and the standalone graphify.mjs tool that generates and caches code-graph artifacts plus an HTML viewer.
+### Database Layer
 
-- Keywords: [`keywords/m8.md`](keywords/m8.md) — 5 scored symbol(s)
+SQLite persistence: connection/schema management and the database files themselves (including WAL sidecar files).
 
-### Client App Foundation
+### Code Graph Tooling (graphify)
 
-React SPA entry point, route composition, shared layout chrome, and the HTTP API client (api.js) used by every page. [evidence-linked: 55 call edges]
+A standalone analysis tool that generates package/code dependency graphs and their visualization output.
 
-- Keywords: [`keywords/m9.md`](keywords/m9.md) — 29 scored symbol(s)
-
-### Client Auth & Session
-
-Login/registration UI and the global authenticated-user context (current user, token). [evidence-linked: 24 call edges]
-
-- Keywords: [`keywords/m10.md`](keywords/m10.md) — 13 scored symbol(s)
-
-### Client Feed & Posts UI
-
-Post-browsing surfaces — home feed, explore view, post detail, and the reusable post card. [evidence-linked: 32 call edges]
-
-- Keywords: [`keywords/m11.md`](keywords/m11.md) — 12 scored symbol(s)
-
-### Client Profile & Social-Graph UI
-
-User profile pages and follow/unfollow social-graph interactions. [evidence-linked: 23 call edges]
-
-- Keywords: [`keywords/m12.md`](keywords/m12.md) — 9 scored symbol(s)
-
-### Server REST API
-
-Express application exposing authentication, posts, and users endpoints behind token-verification middleware.
-
-- Keywords: [`keywords/m13.md`](keywords/m13.md) — 5 scored symbol(s)
-
-### Persistence Layer
-
-SQLite data access for the social graph (users, posts, follows) backed by the live social.db database.
-
-### Code-Graph Tooling
-
-The graphify.mjs generator and its output — dependency/capability graphs and a visualization page for analyzing this codebase.
-
-- Keywords: [`keywords/m15.md`](keywords/m15.md) — 5 scored symbol(s)
+- Keywords: [`keywords/m9.md`](keywords/m9.md) — 5 scored symbol(s)
 
 ### Documentation
 
-Written architecture, capability, and navigation maps describing the system.
+Architecture, capability, and navigation reference docs describing the system.
 
-### Build & Run Orchestration
+### Dev Orchestration
 
-Startup script and npm manifests that install dependencies and launch the client and server together.
+Repo-level launcher and top-level readme that coordinate running the client and server together.
+
+- Keywords: [`keywords/m11.md`](keywords/m11.md) — 68 scored symbol(s)
+
+### Client App Shell & Entry Point
+
+Bootstrap and top-level composition of the React SPA. [evidence-linked: 10 call edges]
+
+- Keywords: [`keywords/m12.md`](keywords/m12.md) — 2 scored symbol(s)
+
+### Client Page Views
+
+Route-level feature screens of the social app (feed, auth, profile, post detail, explore). [evidence-linked: 52 call edges]
+
+- Keywords: [`keywords/m13.md`](keywords/m13.md) — 23 scored symbol(s)
+
+### Client Shared UI Components
+
+Reusable presentational widgets shared across pages. [evidence-linked: 22 call edges]
+
+- Keywords: [`keywords/m14.md`](keywords/m14.md) — 8 scored symbol(s)
+
+### Client API & Auth State Layer
+
+Outbound HTTP client plus global authentication/session state and small utilities. [evidence-linked: 36 call edges]
+
+- Keywords: [`keywords/m15.md`](keywords/m15.md) — 32 scored symbol(s)
+
+### Server HTTP Core & REST API Routes
+
+Express entry point, request-level auth guard middleware, and the REST resource endpoints (auth, posts, users).
+
+- Keywords: [`keywords/m16.md`](keywords/m16.md) — 5 scored symbol(s)
+
+### Server Persistence Layer
+
+Database connection/handler and the SQLite datastore (with WAL side files).
+
+### Documentation & Architecture Maps
+
+Written architecture, capability, and navigation references for the codebase.
+
+### Code-Graph Tooling (graphify)
+
+A standalone Node script that analyzes the repo and its generated graph output/viewer.
+
+- Keywords: [`keywords/m19.md`](keywords/m19.md) — 5 scored symbol(s)
+
+### Dev Bootstrap & Orchestration
+
+Convenience scripts to build/run the whole stack locally.
 
