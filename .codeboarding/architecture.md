@@ -2,25 +2,25 @@
 
 ## Overview
 
-This project is a full-stack social media application pairing a React single-page application (covering feed/post browsing and profile/follow interactions) with a Node/Express REST backend. The client's main entry point is the Client App Shell & Routing module, which composes all pages and depends on Client API Client & Auth for the shared HTTP client and the session context established through login/registration. The Server API (server/src/index.js, built on express, cors, bcryptjs, and jsonwebtoken) exposes the auth, posts, profiles, and follows endpoints and persists its state under server/data/.
+This is a full-stack social media application: a React single-page app booted by the Client App Shell & Routing module (global routes plus the shared page chrome/navigation) that talks to the standalone API Server (Express + SQLite), which mounts /api/auth, /api/users, and /api/posts behind JWT middleware over a node:sqlite data layer. At runtime the Client API & Auth Layer owns all backend communication, token persistence, and the auth context and login/register screens, backing the Client Social UI's feed, discovery, profiles, and post detail with like/comment/follow interactions.
 
 ## Architectural Patterns
 
-- Client-Server / REST API boundary (client/src/api.js as the
-- Layered backend (Routes → Middleware/auth guard → Data
-- Component-based SPA (route-level Pages + shared/reusable components +
-- Feature-aligned modularity (backend routes split by domain: auth,
-- Token-based authentication as a cross-cutting concern (AuthContext on
-- Docs-as-pipeline (graphify.mjs generates graph.json/pkggraph.json architecture documentation artifacts)
+- Client-Server / Two-Tier separation (strict client/ vs server/
+- Component-Based UI (React): presentational components + page components
+- MVC-variant on server: Routes (Controller) → db.js (Model)
+- Middleware chain pattern: auth interception before route handlers
+- Context/Provider pattern: global auth state on client
+- API Layer abstraction: client/src/api.js decouples UI from transport
 
 ## Project Context
 
-- **Project Type:** Full-stack social media web application
-- **Domain:** Web development
+- **Project Type:** Full-stack web application
+- **Domain:** Web Development / Social Networking
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Vite-style SPA build setup`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`
 
 ## Common Commands
 
@@ -34,41 +34,39 @@ _Each module links to a per-module keyword file listing its native symbols (file
 
 ### Client App Shell & Routing
 
-The client entry point and top-level layout/routing that composes all pages into the single-page application. [evidence-linked: 15 call edges]
+Boots the React SPA, wires global routes, and provides the shared page chrome/navigation around all feature pages. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 4 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 3 scored symbol(s)
 
-### Client API Client & Auth
+### Client API & Auth Layer
 
-The shared HTTP client (client/src/api.js), session/auth context, and login/registration pages that establish the user's identity for all other features. [evidence-linked: 32 call edges]
+Owns all backend communication, token persistence, fetch wrapper with Bearer auth, and the auth state/context plus login/register screens. [evidence-linked: 32 call edges]
 
 - Keywords: [`keywords/2.md`](keywords/2.md) — 36 scored symbol(s)
 
-### Feed & Posts UI
+### Client Social UI
 
-The content-consumption feature: feed/explore/post-detail pages and the shared post rendering component with its time-formatting utility. [evidence-linked: 30 call edges]
+The core user-facing feature surfaces: followed-users feed, discovery, profiles, and post detail with like/comment/follow interactions. [evidence-linked: 32 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 14 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 23 scored symbol(s)
 
-### Profiles & Social Graph UI
+### API Server (Express + SQLite)
 
-User-identity presentation and relationship actions: the profile page plus the avatar and follow-button components that surface social-graph state. [evidence-linked: 23 call edges]
+The standalone backend: Express app entry mounting /api/auth, /api/users, /api/posts routes with JWT middleware and a node:sqlite data layer.
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 9 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 5 scored symbol(s)
 
-### Server API
+### Graphify Code-Graph Tooling
 
-The Node/Express backend (social-server, entry server/src/index.js, using express, cors, bcryptjs, and jsonwebtoken) exposing endpoints for auth, posts, profiles, and follows, backed by its persisted state in server/data/.
+A dependency-free Node script that statically scans source dirs, resolves imports, and emits module/package dependency graphs with an interactive Mermaid HTML viewer.
 
 - Keywords: [`keywords/5.md`](keywords/5.md) — 5 scored symbol(s)
 
-### Project Documentation
+### Architecture Documentation
 
-Written architecture and navigation/capability documentation describing the system's design.
+Written design docs describing system architecture, capability mapping, and navigation structure for the codebase.
 
-### Repo Analysis Tooling & Artifacts
+### Dev Orchestration & Packaging
 
-A code-graph generation tool (graphify.mjs), its emitted output (JSON graphs, an HTML viewer, and a cache), and the start.sh launcher that orchestrates the app.
-
-- Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
+One-command startup of both services plus the per-package manifests that define each deployable.
 
