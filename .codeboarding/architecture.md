@@ -2,24 +2,26 @@
 
 ## Overview
 
-This is a full-stack social media application in which users publish posts, browse a feed timeline, and manage follow relationships. The browser client is anchored by the Client App Shell & Routing (React entry point with login-protected route wiring and the top-bar layout), with Client Session & API Gateway owning authentication state and the single Bearer-token fetch transport used by all feature screens, including Feed & Post Content UI and Social Graph UI. On the backend, the Express Server Runtime & Security Middleware serves as the application entry, handling CORS, route mounting, and JWT verification, while Domain API Services & SQLite Persistence backs the endpoints.
+This is a social media application split into a React client and an Express API server. The client enters through the Client App Shell & Routing, which mounts the auth-gated feature screens of Client Page Views (auth, feed, discovery, profile, post detail) built from Client Shared UI Components, with token persistence and the authenticated fetch wrapper for all /api calls handled by Client Auth State & API Client. On the server, the Server HTTP Kernel & Middleware wires CORS, JSON parsing, JWT verification, and error handling around Server API Routes backed by a data persistence layer.
 
 ## Architectural Patterns
 
-- Client-Server / REST API boundary (client/src/api.js ↔ server/src/routes/)
-- Layered backend: routes (controllers) → middleware (cross-cutting auth)
-- Component-based SPA with pages and reusable presentational components
-- Context-based state management (AuthContext for session/user state)
-- Feature-oriented route modularization (auth, posts, users domains mirrored
+- Client-Server separation (strict client/ vs server/ top-level split
+- RESTful API (resource-oriented routes: auth, posts, users)
+- SPA + API pattern (React SPA consuming a
+- Component-based UI (reusable presentational components + page-level containers)
+- Context-based state management (AuthContext.jsx for auth state, no
+- Middleware pipeline (server-side middleware/auth.js for token/JWT validation)
+- Repository-ish data layer (db.js abstracting SQLite access away
 
 ## Project Context
 
-- **Project Type:** Full-Stack Web Application
-- **Domain:** Web Development / Social Networking
+- **Project Type:** Full-stack web application
+- **Domain:** Web development
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`
 
 ## Common Commands
 
@@ -33,43 +35,51 @@ _Each module links to a per-module keyword file listing its native symbols (file
 
 ### Client App Shell & Routing
 
-React entry point, router, login-protected route wiring, and the top-bar layout that hosts all pages. [evidence-linked: 10 call edges]
+React bootstrap and route table, including the Protected auth gate and 404 fallback. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 3 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
 
-### Client Session & API Gateway
+### Client Page Views
 
-Owns authentication state (login/register forms, auth context) and the single HTTP transport (api.js, Bearer-token fetch wrapper) through which the whole client talks to the backend. [evidence-linked: 32 call edges]
+Feature-level screens of the social app (auth screens, feed, discovery, profile, post detail). [evidence-linked: 52 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 36 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 23 scored symbol(s)
 
-### Feed & Post Content UI
+### Client Shared UI Components
 
-The post-centric screens: feed timeline, post detail, and the reusable post card with relative-time formatting. [evidence-linked: 21 call edges]
+Reusable presentational widgets shared across pages. [evidence-linked: 22 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 12 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 6 scored symbol(s)
 
-### Social Graph UI
+### Client Auth State & API Client
 
-User-discovery and relationship screens: explore users, profile pages, follow/unfollow, and the shared avatar component. [evidence-linked: 23 call edges]
+Token/session persistence in localStorage, the authenticated fetch wrapper for all /api calls, and the session context consumed app-wide. [evidence-linked: 36 call edges]
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 11 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 32 scored symbol(s)
 
-### Server Runtime & Security Middleware
+### Server HTTP Kernel & Middleware
 
-Express application entry (CORS, JSON parsing, route mounting) plus the JWT sign/verify middleware guarding protected endpoints. [evidence-linked: 5 call edges]
+Express application wiring: CORS, JSON body parsing, route mounting, health endpoint, 404/error handlers, and JWT auth middleware. [evidence-linked: 5 call edges]
 
 - Keywords: [`keywords/5.md`](keywords/5.md) — 3 scored symbol(s)
 
-### Domain API Services & SQLite Persistence
+### Server API Routes
 
-The REST feature layer over node:sqlite: auth (register/login/me), users & follow graph, and posts/likes/comments/feed, backed by schema setup in db.js and the database files in server/data/. [evidence-linked: 5 call edges]
+All REST endpoint handlers: authentication (register/login/me) plus the social-graph and content APIs for users, follow/unfollow, feed, posts, likes, and comments. [evidence-linked: 5 call edges]
 
 - Keywords: [`keywords/6.md`](keywords/6.md) — 2 scored symbol(s)
 
-### Repository Tooling & Documentation
+### Data Persistence Layer
 
-Cross-cutting assets: architecture/capability/navigation docs, the code-graph generator and its output, the combined launcher, and the README.
+SQLite access setup and the stored database (including WAL sidecar files).
 
-- Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
+### Documentation
+
+Human-written architecture, capability, and navigation docs plus the repo readme.
+
+### Analysis Tooling & Dev Harness
+
+Generated code-graph tool and its output artifacts, plus the script that runs client and server together.
+
+- Keywords: [`keywords/9.md`](keywords/9.md) — 5 scored symbol(s)
 
