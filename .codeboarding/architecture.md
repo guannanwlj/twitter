@@ -2,17 +2,15 @@
 
 ## Overview
 
-This is a social-media web application pairing a single-page client with a server-side API. The Client App Shell & Shared UI is the SPA's entry point, providing routing, layout scaffolding, and shared UI utilities that host the feature surfaces for Authentication & Session, Posts & Feed, and Users & Social Graph. On the server, the Server Runtime & Persistence module bootstraps the API (auth, posts, and users routes guarded by token middleware) on top of a SQLite-backed database access layer.
+This is a full-stack social media application in which users publish posts, browse a feed timeline, and manage follow relationships. The browser client is anchored by the Client App Shell & Routing (React entry point with login-protected route wiring and the top-bar layout), with Client Session & API Gateway owning authentication state and the single Bearer-token fetch transport used by all feature screens, including Feed & Post Content UI and Social Graph UI. On the backend, the Express Server Runtime & Security Middleware serves as the application entry, handling CORS, route mounting, and JWT verification, while Domain API Services & SQLite Persistence backs the endpoints.
 
 ## Architectural Patterns
 
-- Client–Server (SPA + REST API)
-- Layered Backend (Routes → Middleware → Data)
-- Component-Based UI
-- Monorepo (client/ + server/ colocated, independently package-managed)
-- Repository / Data Access Layer (server/src/db.js centralizes database
-- Context Provider (global auth state via React Context)
-- Shared Composition Root (Layout.jsx as shell for page
+- Client-Server / REST API boundary (client/src/api.js ↔ server/src/routes/)
+- Layered backend: routes (controllers) → middleware (cross-cutting auth)
+- Component-based SPA with pages and reusable presentational components
+- Context-based state management (AuthContext for session/user state)
+- Feature-oriented route modularization (auth, posts, users domains mirrored
 
 ## Project Context
 
@@ -21,7 +19,7 @@ This is a social-media web application pairing a single-page client with a serve
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Node.js`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`
 
 ## Common Commands
 
@@ -33,41 +31,45 @@ _No standard entry points detected._
 
 _Each module links to a per-module keyword file listing its native symbols (file/function/class names kept verbatim for exact grep), ranked by importance. The exact formula depends on the module's graph density: dense graphs use `0.30·bridge + 0.30·usage + 0.15·type + 0.15·activity + 0.10·exported`; sparse graphs (calls hidden behind runtime dispatch) use `0.20·bridge + 0.20·usage + 0.15·type + 0.15·activity + 0.15·exported + 0.15·file_hub`. See each keyword file's header for the rule that produced its scores. Agents read a module's keyword file on demand._
 
-### Client App Shell & Shared UI
+### Client App Shell & Routing
 
-The SPA's entry point, routing/layout scaffolding, and shared UI utilities. [evidence-linked: 55 call edges]
+React entry point, router, login-protected route wiring, and the top-bar layout that hosts all pages. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 29 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 3 scored symbol(s)
 
-### Authentication & Session Feature
+### Client Session & API Gateway
 
-Login/registration UI plus the client-side auth state and the server-side auth endpoint and token middleware. [evidence-linked: 25 call edges]
+Owns authentication state (login/register forms, auth context) and the single HTTP transport (api.js, Bearer-token fetch wrapper) through which the whole client talks to the backend. [evidence-linked: 32 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 16 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 36 scored symbol(s)
 
-### Posts & Feed Feature
+### Feed & Post Content UI
 
-Content browsing surfaces (feed, explore, post detail) and their UI card component, backed by the posts API route. [evidence-linked: 32 call edges]
+The post-centric screens: feed timeline, post detail, and the reusable post card with relative-time formatting. [evidence-linked: 21 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 13 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 12 scored symbol(s)
 
-### Users & Social Graph Feature
+### Social Graph UI
 
-Profile viewing and follow/unfollow interactions, backed by the users API route. [evidence-linked: 24 call edges]
+User-discovery and relationship screens: explore users, profile pages, follow/unfollow, and the shared avatar component. [evidence-linked: 23 call edges]
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 10 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 11 scored symbol(s)
 
-### Server Runtime & Persistence
+### Server Runtime & Security Middleware
 
-The API server bootstrap and its database access layer over the SQLite store.
+Express application entry (CORS, JSON parsing, route mounting) plus the JWT sign/verify middleware guarding protected endpoints. [evidence-linked: 5 call edges]
 
-### Documentation
+- Keywords: [`keywords/5.md`](keywords/5.md) — 3 scored symbol(s)
 
-Human-written architecture and navigation/capability reference docs describing the system.
+### Domain API Services & SQLite Persistence
 
-### Analysis Tooling & Generated Artifacts
+The REST feature layer over node:sqlite: auth (register/login/me), users & follow graph, and posts/likes/comments/feed, backed by schema setup in db.js and the database files in server/data/. [evidence-linked: 5 call edges]
 
-The repo-graph generator script, its cached/serialized output, and the orchestration/entry-point scripts.
+- Keywords: [`keywords/6.md`](keywords/6.md) — 2 scored symbol(s)
+
+### Repository Tooling & Documentation
+
+Cross-cutting assets: architecture/capability/navigation docs, the code-graph generator and its output, the combined launcher, and the README.
 
 - Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
 
