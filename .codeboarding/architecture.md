@@ -2,25 +2,24 @@
 
 ## Overview
 
-This project is a repository-analysis and visualization system built as separate Node/npm packages: a Client Frontend web UI with its own build setup and a Server Backend with its own bundled data. The primary entry point is the root-level graphify.mjs script, which runs the Graphify Code-Analysis Tool to generate code-graph artifacts and a visualization output. Project Documentation completes the system with written descriptions of its structure, capabilities, and navigation.
+This is a full-stack social/blogging application built as a React single-page app served against an Express backend. The client-side runtime starts at the Client App Shell, which routes between the Client Feature Pages (browsing, posting, profiles, login/signup) built from the Client Shared UI Components, while the Client Auth & API Layer holds authenticated user state and centralizes all HTTP communication with the server. On the server, Server Bootstrap & Data Access is the Express entrypoint wiring middleware and routes for the Server Auth & Social REST API, which persists data through SQLite Persistence.
 
 ## Architectural Patterns
 
-- Client–Server / Two-Tier architecture (strict client/ vs server/
-- RESTful Layered Backend (routes → middleware → data
-- Component-Based SPA (page-level views composing reusable UI components)
-- Context/Provider state management (auth state in AuthContext)
-- Route/Middleware interception pattern (middleware/auth.js guards route handlers)
-- API Client Gateway pattern (client/src/api.js centralizes all server
+- Client-Server separation via HTTP/REST contract (independent frontend and
+- Layered backend (Route → Middleware → Data): Express
+- Component-based SPA: pages as route targets, reusable presentational
+- Relational data model: 5 tables with FK relationships
+- Token-based stateless authentication: JWT issued at login, validated
 
 ## Project Context
 
-- **Project Type:** Full-Stack Web Application
-- **Domain:** Web Development / Social Networking
+- **Project Type:** Full-stack social media / microblogging web application
+- **Domain:** Web development
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `JWT/token-based authentication`, `REST/JSON API`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Node.js`, `JWT authentication`, `CORS + JSON middleware`
 
 ## Common Commands
 
@@ -32,25 +31,51 @@ _No standard entry points detected._
 
 _Each module links to a per-module keyword file listing its native symbols (file/function/class names kept verbatim for exact grep), ranked by importance. The exact formula depends on the module's graph density: dense graphs use `0.30·bridge + 0.30·usage + 0.15·type + 0.15·activity + 0.10·exported`; sparse graphs (calls hidden behind runtime dispatch) use `0.20·bridge + 0.20·usage + 0.15·type + 0.15·activity + 0.15·exported + 0.15·file_hub`. See each keyword file's header for the rule that produced its scores. Agents read a module's keyword file on demand._
 
-### Client Frontend
+### Client App Shell
 
-The web UI application — a self-contained Node/npm frontend package with its own build setup.
+Bootstrap and routing shell for the React SPA. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 63 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
 
-### Server Backend
+### Client Feature Pages
 
-The application's backend service — a separate npm package with source code and its own bundled data.
+Screen-level views composing the app's features: browsing, posting, profiles, and account creation/login. [evidence-linked: 52 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 5 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 23 scored symbol(s)
 
-### Graphify Code-Analysis Tool
+### Client Shared UI Components
 
-A standalone repository-analysis tool (root-level graphify.mjs script) that generates code-graph artifacts and a visualization output.
+Reusable presentation components shared across pages. [evidence-linked: 22 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 5 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 6 scored symbol(s)
 
-### Project Documentation
+### Client Auth & API Layer
 
-Written architectural documentation describing the system's structure, capabilities, and navigation.
+Holds authenticated user state and centralizes all HTTP communication with the server, plus small client utilities. [evidence-linked: 36 call edges]
+
+- Keywords: [`keywords/4.md`](keywords/4.md) — 32 scored symbol(s)
+
+### Server Bootstrap & Data Access
+
+Express entrypoint that wires middleware and routes, and the database connection/setup module.
+
+### Server Auth & Social REST API
+
+The server's REST surface: login/registration endpoints plus the token-validation middleware, and the domain endpoints for posts and users (feeds, profiles, follow relationships).
+
+- Keywords: [`keywords/6.md`](keywords/6.md) — 5 scored symbol(s)
+
+### SQLite Persistence
+
+The on-disk store backing the server (SQLite with WAL journaling).
+
+### Project Docs & Runbook
+
+Repository-level documentation and the startup/launcher scripts.
+
+### Code-Graph Analysis Tooling
+
+A self-analysis tool that maps the codebase into package/call graphs and serves a viewer for them.
+
+- Keywords: [`keywords/9.md`](keywords/9.md) — 5 scored symbol(s)
 
