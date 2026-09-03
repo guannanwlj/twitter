@@ -2,25 +2,25 @@
 
 ## Overview
 
-This is a social posting application in which a React single-page app for feeds, posts, profiles, and follows is backed by a server-side HTTP API over SQLite. The client's entry point is the Client App Shell & Routing, which bootstraps the app and supplies the root component plus the shared API client that all feature modules — authentication/session state, feed and post browsing, and profile/social-graph UI, supported by shared UI utilities — call into. At runtime the Server HTTP API serves requests against the Server Data Layer (SQLite), while Repository Tooling, Docs & Graph Output supports development outside the runtime path.
+This is a full-stack social networking application consisting of a React single-page app backed by an Express REST API with a SQLite database. Client-side, the Client App Shell & Routing mounts the SPA and gates protected views behind authentication, with feature screens like the feed, post detail, profiles, and explore in Client Pages (Feature Screens) reusing the HTTP API client, auth/session context, and shared UI widgets from Client Shared Components & Services. On the server, Server API & Route Handlers bootstraps Express with middleware, a health endpoint, and error handlers, exposing the authentication, users, and posts routers behind the authRequired JWT guard, while Server Data Layer provides the SQLite connection and persisted database.
 
 ## Architectural Patterns
 
-- Client-Server / SPA + REST API
-- Layered backend
-- MVC-variant
-- Stateless token auth
-- Context-based state management
-- Page/Component hierarchy
+- Client–Server (Two-Tier Monorepo)
+- Layered Backend (routes → middleware → data access
+- Component-Based Frontend (Page/Container–Presentational split)
+- RESTful Resource Routing
+- Global Auth State via React Context Provider
+- Repository/DAO pattern (central db.js data-access module)
 
 ## Project Context
 
-- **Project Type:** Full-stack web application
-- **Domain:** Web development / Social Networking
+- **Project Type:** Full-Stack Web Application
+- **Domain:** Web Development
 
 ## Tech Stack
 
-`Node.js/TypeScript`, `React`, `Gin`, `Express`, `React Context API`, `Node.js`, `JWT authentication`, `CORS middleware`
+`Node.js/TypeScript`, `React`, `Gin`, `Express`, `Vite`, `React Router`, `React Context API`, `Node.js`
 
 ## Common Commands
 
@@ -34,47 +34,39 @@ _Each module links to a per-module keyword file listing its native symbols (file
 
 ### Client App Shell & Routing
 
-Entry point and shared plumbing of the frontend single-page app: app bootstrap, root component, and the API client used by all pages. [evidence-linked: 46 call edges]
+Mounts the React SPA, defines routes, and gates protected views behind authentication. [evidence-linked: 10 call edges]
 
-- Keywords: [`keywords/1.md`](keywords/1.md) — 25 scored symbol(s)
+- Keywords: [`keywords/1.md`](keywords/1.md) — 2 scored symbol(s)
 
-### Client Authentication UI & Session State
+### Client Pages (Feature Screens)
 
-Login/registration screens plus the React context that holds the authenticated user and supplies it to the rest of the UI. [evidence-linked: 24 call edges]
+The page-level features of the social app: feed, post detail, profile, explore, login/register. [evidence-linked: 52 call edges]
 
-- Keywords: [`keywords/2.md`](keywords/2.md) — 13 scored symbol(s)
+- Keywords: [`keywords/2.md`](keywords/2.md) — 23 scored symbol(s)
 
-### Client Feed & Post Browsing
+### Client Shared Components & Services
 
-The content-consuming surface: home feed, exploration of posts, single-post detail view, and the reusable post card. [evidence-linked: 32 call edges]
+The cross-cutting client code all pages reuse: the browser-side HTTP API client, the app-wide auth/session context, and the reusable presentational widgets (post card, avatar, follow button, layout chrome, loading state, time helper). [evidence-linked: 50 call edges]
 
-- Keywords: [`keywords/3.md`](keywords/3.md) — 12 scored symbol(s)
+- Keywords: [`keywords/3.md`](keywords/3.md) — 38 scored symbol(s)
 
-### Client Profile & Social-Graph UI
+### Server API & Route Handlers
 
-User-facing identity and relationship features: profile pages, follow/unfollow control, and avatar rendering. [evidence-linked: 23 call edges]
+Express app bootstrap (CORS/JSON middleware, `/api/health`, route mounting, 404/500 handlers) together with the three REST resource routers — authentication, users (profile/follows), and posts (feed, likes, comments) — and the `authRequired` JWT guard that hydrates `req.user`.
 
-- Keywords: [`keywords/4.md`](keywords/4.md) — 9 scored symbol(s)
+- Keywords: [`keywords/4.md`](keywords/4.md) — 5 scored symbol(s)
 
-### Client Shared UI & Utilities
+### Server Data Layer
 
-Cross-cutting presentation concerns shared by the above features: page layout, loading indicators, time formatting, and global styles. [evidence-linked: 13 call edges]
+SQLite connection setup plus the persisted database with its WAL sidecar files.
 
-- Keywords: [`keywords/5.md`](keywords/5.md) — 4 scored symbol(s)
+### Documentation
 
-### Server HTTP API
+Hand-written architecture and navigation docs describing the system.
 
-The Express application core: entry point, the three REST route groups (auth, posts, users), and the token-verification middleware that guards authenticated routes.
+### Repo Tooling & Generated Artifacts
 
-- Keywords: [`keywords/6.md`](keywords/6.md) — 5 scored symbol(s)
+One-command startup of both services and the dependency-graph generator with its output.
 
-### Server Data Layer (SQLite)
-
-Database connection/initialization and the persisted social graph data.
-
-### Repository Tooling, Docs & Graph Output
-
-Project-level orchestration and documentation: the startup script, the code-graph generator and its generated artifacts, and the architecture docs.
-
-- Keywords: [`keywords/8.md`](keywords/8.md) — 5 scored symbol(s)
+- Keywords: [`keywords/7.md`](keywords/7.md) — 5 scored symbol(s)
 
