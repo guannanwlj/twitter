@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-03T07:20:58.702061+00:00",
+  "generated_at": "2026-09-03T07:43:43.312015+00:00",
   "description": "Repository understanding baseline — routing index of the generated artifacts. Read this first to decide which artifact answers your question.",
   "artifacts": [
     {
       "name": "architecture",
       "file": "architecture.md",
-      "size_bytes": 3611,
+      "size_bytes": 3770,
       "title": "Architecture",
       "purpose": "architecture overview, repo metadata (tech stack, commands, directory), and the curated module map with per-module keyword links",
       "read_hint": "module hierarchy first, then the relations section; skip module sections you don't need"
@@ -14,8 +14,8 @@
       "name": "keywords",
       "file": "keywords",
       "kind": "directory",
-      "size_bytes": 5407,
-      "file_count": 7,
+      "size_bytes": 5732,
+      "file_count": 9,
       "purpose": "per-module keyword files: native symbols ranked by importance score",
       "read_hint": "one keyword file per module under keywords/; grep your keyword there to locate its module, or follow the per-module links in architecture.md"
     }
